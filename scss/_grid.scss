@@ -1,0 +1,10 @@
+.contenidoPrincipal{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+                        "titulo"
+                        "header"
+                        "main"
+                        "footer";   
+}
+

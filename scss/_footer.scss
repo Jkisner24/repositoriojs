@@ -1,0 +1,30 @@
+footer{
+    grid-area: footer;
+    display: flex;
+    flex-direction: column;
+    background-color: $mainColor;
+    justify-content: center;
+    align-items: center;
+
+    div .listaFooter{
+        display: flex;
+        text-decoration: none;
+        list-style: none;
+        
+        li img{
+            height: 30px;
+            margin-top: 10px;
+            padding: 10px 10px 0px 10px;            
+        }    
+    }
+}    
+
+
+.copyright{
+    margin-left: 80vw;  
+    color: $secondColor;
+    font-style: $mainFont;
+    font-size: 10px;
+}
+
+

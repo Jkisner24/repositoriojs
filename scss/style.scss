@@ -1,0 +1,101 @@
+@import "./variables.scss";
+@import "./header.scss";
+@import "./footer.scss";
+@import "./main.scss";
+@import "./grid.scss";
+
+*{
+    padding: 0;
+    margin: 0;
+}
+
+.btn {
+    color: rgb(2, 49, 110);
+}
+
+/*medias*/
+@media screen and (max-width: 768px) {
+    
+    .contenidoPrincipal{
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+                            "titulo"
+                            "header"
+                            "main"
+                            "footer";
+    }
+    form{
+        max-width: 75%;
+        margin: 50px auto;
+    }
+    .horarios{
+        background-color: $thirdColor;
+    }
+
+    footer div h2{
+        margin-left: 80vw;  
+        color: $secondColor;
+        font-style: $mainFont;
+        font-size: 9px;
+        }
+    .imagenesGalerias{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        filter: grayscale(1);        
+                img{
+                    padding: 1% 1%;
+                    flex: none;
+                    max-height: 30%;
+                    max-width: 75%;
+            }
+        }     
+        .imagenesGalerias:hover{
+            filter: grayscale(0);
+        }
+}
+
+
+
+@media screen and (max-width: 320px) {
+    
+    .contenidoPrincipal{
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+                            "titulo"
+                            "header"
+                            "main"
+                            "footer";
+    }
+    .imagenesGalerias{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        filter: grayscale(1);        
+                img{
+                    padding: 1% 1%;
+                    flex: none;
+                    max-height: 30%;
+                    max-width: 75%;
+            }
+        }     
+        .imagenesGalerias:hover{
+            filter: grayscale(0);
+        }
+
+    form{
+        max-width: 75%;
+        margin: 50px auto;
+        }
+    
+    footer div h2{
+        margin-left: 80vw;  
+        color: $secondColor;
+        font-style: $mainFont;
+        font-size: 7px;
+    }
+}
