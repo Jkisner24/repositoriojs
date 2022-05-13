@@ -209,7 +209,6 @@ function finalizarCompra(){
     }
 }
 
-
 function ejecutarOpcion(opcion){
 
     if(opcion == 0){
@@ -242,3 +241,35 @@ while(!terminarPrograma){
 
     terminarPrograma = ejecutarOpcion(opcion);
 }
+
+
+/* Interactuando con HTML */
+
+let horarios = document.getElementById("horarios");
+
+horarios.innerHTML = "Horarios sujetos a disponibilidad. Por cambios presionar aqui";
+
+
+/* Agregando nodos
+
+let nombre = document.createElement("p");
+nombre.innerHTML = "<p>Horarios sujetos a disponibilidad</p>"
+document.body.append(nombre); */
+
+
+/* Trabajando con eventos */
+let evento = "mousedown";
+let boton = document.getElementById("cambioHorario");
+boton.addEventListener(evento, () => {
+
+    console.log("click con" + evento);
+})
+
+/* let formulario = document.getElementById("");
+
+
+formulario.addEventListener("submit", (e) => {
+    e.preventDefault();
+    console.log("Formulario enviado")
+}); */
+
