@@ -223,7 +223,7 @@ input, textarea {
     @extend #surname
 }
 */
-/*ubicacion*/
+/* ubicacion */
 .iframeUbicacion {
   display: flex;
   flex-direction: column;
@@ -240,7 +240,11 @@ input, textarea {
   margin: 0; }
 
 .btn {
-  color: #02316e; }
+  color: #02316e;
+  margin: 3% 0%; }
+
+.card {
+  margin: 100px 0px !important; }
 
 /*medias*/
 @media screen and (max-width: 768px) {
