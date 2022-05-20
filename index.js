@@ -1,6 +1,7 @@
 const contenedor = document.getElementById("productos");
 const tablaCarrito = document.getElementById("tablaCarrito");
 const carrito = []; 
+let boton = document.getElementById("botonVerCarrito")
 
 const PRODUCTOS = [
     {
@@ -34,11 +35,16 @@ const getCard = (item) => {
                 <h5 class="card-title">${item.nombre}</h5>
                 <p class="card-text">$${item.precio}</p>
                 <p class="card-text">Stock: ${item.stock}</p>
-                <button onclick=agregarCarrito(${item.id}) class="btn ${item.stock ? 'btn-primary' : 'btn-secondary'}" ${!item.stock ? 'disabled' : '' } >Agregar clase al carrito</button>
+                <button=agregarCarrito(${item.id}) class="btn ${item.stock ? 'btn-primary' : 'btn-secondary'}" ${!item.stock ? 'disabled' : '' } >Agregar clase al carrito</button>
             </div>
         </div>
     `);
 };
+
+boton.addEventListener("click", respuestaclick)
+function respuestaclick(){
+    console.log("Vistas carrito")
+}
 
 const getRow = (item) => {
     return(
