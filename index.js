@@ -4,7 +4,6 @@ const carrito = []; /* array de carrito vacio */
 const botonConfirmar = document.getElementById("botonConfirmar");
 const botonVaciar = document.getElementById("botonVaciar");
 
-
 /* Defino productos */
 const PRODUCTOS = [
     {
@@ -144,3 +143,39 @@ botonVaciar.addEventListener('click', () => {
         }
     })
 });
+
+
+/* Pago con MP */
+
+const pagar = async () => {
+
+    const productosToMap = PRODUCTOS.map(Element => {
+        let nuevoElemento = 
+        {
+            title: Element.nombre,
+            description: "...",
+            picture_url: Element.imagen,
+            category_id: Element.id,
+            quantity: Element.stock,
+            currency_id: "ARS",
+            unit_price: Element.precio
+        }
+        return nuevoElemento
+    });
+
+    let response = await fetch("https://api.mercadopago.com/checkout/preferences", {
+
+        method: "POST",
+        headers: {
+            Authorization: "Bearer TEST-4396464481823670-060217-18387e717c97d3d7ff29c8ada7440eb6-435274176"
+        },
+        body: JSON.stringify({
+            items: productosToMap
+    })
+
+    })
+    let data = await response.json()
+    console.log(data)
+    window.open(data.init_point, "_blank")
+}
+
