@@ -3,6 +3,8 @@ const tablaCarrito = document.getElementById("tablaCarrito");
 const carrito = []; /* array de carrito vacio */
 const botonConfirmar = document.getElementById("botonConfirmar");
 const botonVaciar = document.getElementById("botonVaciar");
+const botonPagar = document.getElementById("botonPagar");
+
 
 /* Defino productos */
 const PRODUCTOS = [
@@ -67,6 +69,7 @@ const cargarProductos = (datos, nodo, esTabla) => {
     nodo.innerHTML = acumulador; /* convierto el txt en nodo html*/
 };
 
+
 /* Agregando productos al carrito */
 const agregarCarrito = (id) => {
     const seleccion = PRODUCTOS.find(item => item.id === id);
@@ -90,11 +93,10 @@ const agregarCarrito = (id) => {
 
 cargarProductos(PRODUCTOS, contenedor, false);
 
-function inicializarCarrito(){
+let inicializarCarrito = () => {
     carrito = JSON.parse(localStorage.getItem("carrito")) || [];
     cargarProductos(carrito, tablaCarrito, true);
 };
-
 
 /* Agrego alertas con sweet alert */
 botonConfirmar.addEventListener('click', () =>{
@@ -106,7 +108,6 @@ botonConfirmar.addEventListener('click', () =>{
         timer: 1500
     })    
 });
-
 
 botonVaciar.addEventListener('click', () => {
     const swalWithBootstrapButtons = Swal.mixin({
@@ -126,13 +127,12 @@ botonVaciar.addEventListener('click', () => {
         reverseButtons: true
     }).then((result) => {
         if (result.isConfirmed) {
-          swalWithBootstrapButtons.fire(
+            swalWithBootstrapButtons.fire(
             'Borradas!',
             'Sus clases fueron borradas exitosamente.',
             'success'
           )
         }else if (
-          /* Read more about handling dismissals below */
           result.dismiss === Swal.DismissReason.cancel
         ) {
           swalWithBootstrapButtons.fire(
@@ -144,8 +144,9 @@ botonVaciar.addEventListener('click', () => {
     })
 });
 
-
 /* Pago con MP */
+
+botonPagar.addEventListener('click', () => pagar())
 
 const pagar = async () => {
 
@@ -178,4 +179,3 @@ const pagar = async () => {
     console.log(data)
     window.open(data.init_point, "_blank")
 }
-
