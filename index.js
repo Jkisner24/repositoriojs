@@ -1,8 +1,9 @@
 const contenedor = document.getElementById("productos");
 const tablaCarrito = document.getElementById("tablaCarrito");
-const carrito = []; /* array de carrito vacio */
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [] ;
 const botonConfirmar = document.getElementById("botonConfirmar");
 const botonVaciar = document.getElementById("botonVaciar");
+const subtotal = document.getElementById("subtotal");
 const botonPagar = document.getElementById("botonPagar");
 
 
@@ -46,9 +47,20 @@ const obtenerTarjeta = (item) => {
     `)
 };
 
+const cargarProductos = (datos, nodo, esTabla) => {
+    let acumulador = "";
+    datos.forEach((el) => {
+        acumulador += esTabla ? obtenerTabla(el) : obtenerTarjeta(el); /* uso de ternarios */
+    })
+    nodo.innerHTML = acumulador; /* convierto el txt en nodo html*/
+};
+
 /* Armo tabla de carrito con bootstrap */
 const obtenerTabla = (item) => {
-    return(
+
+    let acum = "";
+    item.forEach((item) =>
+        acum +=
         `
     <tr>
         <th scope="row">${item.id}</th>
@@ -58,15 +70,12 @@ const obtenerTabla = (item) => {
         <td>$${item.precio * item.cantidad}</td>
         <td><img style="width:20px" src="${item.imagen}" alt="imagen"></td>
     </tr>
-    `)
-};
+    `
+    )
+    tablaCarrito.innerHTML = acum;
+    carritoStorage();
+    calcularTotal();
 
-const cargarProductos = (datos, nodo, esTabla) => {
-    let acumulador = "";
-    datos.forEach((el) => {
-        acumulador += esTabla ? obtenerTabla(el) : obtenerTarjeta(el); /* uso de ternarios */
-    })
-    nodo.innerHTML = acumulador; /* convierto el txt en nodo html*/
 };
 
 
@@ -86,17 +95,36 @@ const agregarCarrito = (id) => {
     } else {
         carrito[busqueda].cantidad = carrito[busqueda].cantidad + 1
     }
-    
-    localStorage.setItem("carrito", JSON.stringify(carrito));
     cargarProductos(carrito, tablaCarrito, true)
 };
 
 cargarProductos(PRODUCTOS, contenedor, false);
 
-let inicializarCarrito = () => {
-    carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-    cargarProductos(carrito, tablaCarrito, true);
-};
+function carritoStorage() {
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+}  
+
+let botonCarrito = document.getElementById('botonVerCarrito');
+botonCarrito.addEventListener("click", () => obtenerTabla(carrito));
+
+/* Calculo de totales */
+const calcularTotal = () => {
+    let precioTotal = 0;
+    carrito.forEach((id) => {
+      precioTotal += id.precio * id.cantidad;
+    });
+    subtotal.innerHTML = `Subtotal: $${precioTotal}`
+  }
+
+/* Vaciar Carrito */
+const vaciarCarrito = () => {
+    localStorage.clear();
+    carrito = [];
+}
+
+function actualizarCarrito() {
+    calcularTotal();
+  }
 
 /* Agrego alertas con sweet alert */
 botonConfirmar.addEventListener('click', () =>{
@@ -132,6 +160,7 @@ botonVaciar.addEventListener('click', () => {
             'Sus clases fueron borradas exitosamente.',
             'success'
           )
+            vaciarCarrito()
         }else if (
           result.dismiss === Swal.DismissReason.cancel
         ) {
@@ -145,8 +174,7 @@ botonVaciar.addEventListener('click', () => {
 });
 
 /* Pago con MP */
-
-botonPagar.addEventListener('click', () => pagar())
+botonPagar.addEventListener("click", () => pagar())
 
 const pagar = async () => {
 
